@@ -9,19 +9,19 @@ import { Separator } from "./ui/separator";
 import { LinkIcon, MapPinIcon } from "lucide-react";
 
 async function Sidebar() {
-    const authUser = await currentUser();
-    if (!authUser) return <UnAuthenticatedSidebar />;
-    const user = await getUserByClerkId(authUser.id);
-    if (!user) return null;
+  const authUser = await currentUser();
+  if (!authUser) return <UnAuthenticatedSidebar />;
 
+  const user = await getUserByClerkId(authUser.id);
+  if (!user) return null;
 
-
-  return (<div className="sticky top-20">
-    <Card>
+  return (
+    <div className="sticky top-20">
+      <Card>
         <CardContent className="pt-6">
           <div className="flex flex-col items-center text-center">
             <Link
-              href={`/profile/${user.username ?? authUser.emailAddresses[0].emailAddress.split("@")[0]}`}
+              href={`/profile/${user.username}`}
               className="flex flex-col items-center justify-center"
             >
               <Avatar className="w-20 h-20 border-2 ">
@@ -71,34 +71,33 @@ async function Sidebar() {
           </div>
         </CardContent>
       </Card>
-  </div>
+    </div>
   );
 }
 
-export default Sidebar
-
+export default Sidebar;
 
 const UnAuthenticatedSidebar = () => (
-    <div className="sticky top-20">
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-center text-xl font-semibold">Welcome Back!</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <p className="text-center text-muted-foreground mb-4">
-            Login to access your profile and connect with others.
-          </p>
-          <SignInButton mode="modal">
-            <Button className="w-full" variant="outline">
-              Login
-            </Button>
-          </SignInButton>
-          <SignUpButton mode="modal">
-            <Button className="w-full mt-2" variant="default">
-              Sign Up
-            </Button>
-          </SignUpButton>
-        </CardContent>
-      </Card>
-    </div>
-  );
+  <div className="sticky top-20">
+    <Card>
+      <CardHeader>
+        <CardTitle className="text-center text-xl font-semibold">Welcome Back!</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <p className="text-center text-muted-foreground mb-4">
+          Login to access your profile and connect with others.
+        </p>
+        <SignInButton mode="modal">
+          <Button className="w-full" variant="outline">
+            Login
+          </Button>
+        </SignInButton>
+        <SignUpButton mode="modal">
+          <Button className="w-full mt-2" variant="default">
+            Sign Up
+          </Button>
+        </SignUpButton>
+      </CardContent>
+    </Card>
+  </div>
+);
